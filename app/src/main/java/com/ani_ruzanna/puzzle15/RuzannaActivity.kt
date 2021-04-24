@@ -74,10 +74,11 @@ class RuzannaActivity : AppCompatActivity() {
     @SuppressLint("ClickableViewAccessibility")
     private fun onTouchListener(): OnTouchListener {
         return OnTouchListener { view, event ->
+            val layoutParams = view.layoutParams as RelativeLayout.LayoutParams
+            val x1 = layoutParams.leftMargin
+            val y1 = layoutParams.topMargin
             when (event.action and MotionEvent.ACTION_MASK) {
                 MotionEvent.ACTION_UP ->{
-                    val layoutParams = view
-                            .layoutParams as RelativeLayout.LayoutParams
                     if (viewId == view.id && viewId != 0){
                         layoutParams.leftMargin = xOpen
                         layoutParams.topMargin = yOpen
@@ -86,13 +87,8 @@ class RuzannaActivity : AppCompatActivity() {
                         viewId = 0
                         checker()
                     }
-                    view.layoutParams = layoutParams
                 }
                 MotionEvent.ACTION_DOWN ->{
-                    val layoutParams = view
-                            .layoutParams as RelativeLayout.LayoutParams
-                    val x1 = layoutParams.leftMargin
-                    val y1 = layoutParams.topMargin
                     if ((x1 - xOpen) == imageWidth || (xOpen - x1) == imageWidth ||
                             (y1 - yOpen)== imageWidth || (yOpen - y1) == imageWidth){
                         if ((x1 - xOpen) == 0 || (xOpen - x1) == 0 ||
@@ -102,13 +98,8 @@ class RuzannaActivity : AppCompatActivity() {
                             viewId = view.id
                         }
                     }
-                    view.layoutParams = layoutParams
                 }
                 MotionEvent.ACTION_MOVE ->{
-                    val layoutParams = view
-                            .layoutParams as RelativeLayout.LayoutParams
-                    val x1 = layoutParams.leftMargin
-                    val y1 = layoutParams.topMargin
                     if (viewId == view.id && viewId != 0){
                         if (y1 == yOpen){
                             layoutParams.leftMargin = (xOpen + x1)/2
@@ -117,9 +108,9 @@ class RuzannaActivity : AppCompatActivity() {
                             layoutParams.topMargin = (yOpen + y1)/2
                         }
                     }
-                    view.layoutParams = layoutParams
                 }
             }
+            view.layoutParams = layoutParams
             mainLayout.invalidate()
             true
         }
