@@ -1,5 +1,6 @@
 package com.ani_ruzanna.puzzle15
 
+import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.DialogInterface
@@ -77,41 +78,47 @@ class RuzannaActivity : AppCompatActivity() {
             val layoutParams = view.layoutParams as RelativeLayout.LayoutParams
             val x1 = layoutParams.leftMargin
             val y1 = layoutParams.topMargin
-            when (event.action and MotionEvent.ACTION_MASK) {
-                MotionEvent.ACTION_UP ->{
-                    if (viewId == view.id && viewId != 0){
-                        layoutParams.leftMargin = xOpen
-                        layoutParams.topMargin = yOpen
-                        xOpen = xDawn
-                        yOpen = yDawn
-                        viewId = 0
-                        checker()
-                    }
-                }
-                MotionEvent.ACTION_DOWN ->{
+            Log.i("start________", "$x1, $y1, $xOpen, $yOpen")
+            when(event.action and MotionEvent.ACTION_MASK){
+                MotionEvent.ACTION_DOWN -> {
                     if ((x1 - xOpen) == imageWidth || (xOpen - x1) == imageWidth ||
                             (y1 - yOpen)== imageWidth || (yOpen - y1) == imageWidth){
                         if ((x1 - xOpen) == 0 || (xOpen - x1) == 0 ||
                                 (y1 - yOpen)== 0 || (yOpen - y1) == 0){
-                            xDawn = x1
-                            yDawn = y1
-                            viewId = view.id
+                            Log.i("ACTION_DOWN________s", "$x1, $y1, $xOpen, $yOpen")
+
+                            ObjectAnimator
+                                    .ofFloat(view, "translationX",(xOpen - x1).toFloat())
+                                    .setDuration(100)
+                                    .start().apply {
+                                        Log.i("ACTION_DOWN________12", "$x1, $y1, $xOpen, $yOpen")
+                                    }
+//                                    .apply {
+//                                        duration = 100
+//                                        start()
+//                                    }
+                            ObjectAnimator
+                                    .ofFloat(view, "translationY", (yOpen - y1).toFloat())
+                                    .setDuration(100).start().apply {
+                                        Log.i("ACTION_DOWN________13", "$x1, $y1, $xOpen, $yOpen")
+
+                                    }
+//                                    .apply{
+//                                        duration = 100
+//                                        start()
+//                                    }
+                            layoutParams.leftMargin = xOpen
+                            layoutParams.topMargin = yOpen
+                            xOpen = x1
+                            yOpen = y1
+                            Log.i("ACTION_DOWN________a", "${layoutParams.leftMargin}, ${layoutParams.topMargin}, $xOpen, $yOpen")
+
+                            mainLayout.invalidate()
                         }
                     }
-                }
-                MotionEvent.ACTION_MOVE ->{
-                    if (viewId == view.id && viewId != 0){
-                        if (y1 == yOpen){
-                            layoutParams.leftMargin = (xOpen + x1)/2
-                        }
-                        if(x1 == xOpen) {
-                            layoutParams.topMargin = (yOpen + y1)/2
-                        }
-                    }
+
                 }
             }
-            view.layoutParams = layoutParams
-            mainLayout.invalidate()
             true
         }
     }

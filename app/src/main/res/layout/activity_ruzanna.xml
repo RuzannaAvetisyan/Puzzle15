@@ -163,4 +163,15 @@
         android:contentDescription="@string/app_name"
         android:src="@drawable/i15" />
 
+    <ImageView
+        android:id="@+id/image16"
+        android:layout_width="88dp"
+        android:layout_height="88dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="305dp"
+        android:layout_marginTop="591dp"
+        android:contentDescription="@string/app_name"
+        android:padding="2dp"
+        android:src="@drawable/i16" />
+
 </RelativeLayout>
