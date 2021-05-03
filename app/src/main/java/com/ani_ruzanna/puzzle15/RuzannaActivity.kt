@@ -1,5 +1,6 @@
 package com.ani_ruzanna.puzzle15
 
+import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.app.AlertDialog
@@ -21,9 +22,7 @@ class RuzannaActivity : AppCompatActivity() {
     private var imageWidth = 0
     private var xOpen = 0
     private var yOpen = 0
-    private var xDawn = 0
-    private var yDawn = 0
-    private var viewId = 0
+    private var sumOfMoves = 0
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,7 +38,7 @@ class RuzannaActivity : AppCompatActivity() {
         while (odd) {
             var n = 0
             for (i in 0..14) {
-                for (j in i..14) {
+                for (j in (i+1)..14) {
                     if (lsh[i].second > lsh[j].second) {
                         ++n
                     }
@@ -78,52 +77,34 @@ class RuzannaActivity : AppCompatActivity() {
             val layoutParams = view.layoutParams as RelativeLayout.LayoutParams
             val x1 = layoutParams.leftMargin
             val y1 = layoutParams.topMargin
-            Log.i("start________", "$x1, $y1, $xOpen, $yOpen")
             when(event.action and MotionEvent.ACTION_MASK){
                 MotionEvent.ACTION_DOWN -> {
                     if ((x1 - xOpen) == imageWidth || (xOpen - x1) == imageWidth ||
                             (y1 - yOpen)== imageWidth || (yOpen - y1) == imageWidth){
                         if ((x1 - xOpen) == 0 || (xOpen - x1) == 0 ||
                                 (y1 - yOpen)== 0 || (yOpen - y1) == 0){
-                            Log.i("ACTION_DOWN________s", "$x1, $y1, $xOpen, $yOpen")
-
-                            ObjectAnimator
-                                    .ofFloat(view, "translationX",(xOpen - x1).toFloat())
-                                    .setDuration(100)
-                                    .start().apply {
-                                        Log.i("ACTION_DOWN________12", "$x1, $y1, $xOpen, $yOpen")
-                                    }
-//                                    .apply {
-//                                        duration = 100
-//                                        start()
-//                                    }
-                            ObjectAnimator
-                                    .ofFloat(view, "translationY", (yOpen - y1).toFloat())
-                                    .setDuration(100).start().apply {
-                                        Log.i("ACTION_DOWN________13", "$x1, $y1, $xOpen, $yOpen")
-
-                                    }
-//                                    .apply{
-//                                        duration = 100
-//                                        start()
-//                                    }
+                            val x = ObjectAnimator.ofFloat(view, "x", xOpen.toFloat())
+                            val y = ObjectAnimator.ofFloat(view, "y", yOpen.toFloat())
+                            AnimatorSet().apply{
+                                playTogether(x, y)
+                                start()
+                            }
                             layoutParams.leftMargin = xOpen
                             layoutParams.topMargin = yOpen
                             xOpen = x1
                             yOpen = y1
-                            Log.i("ACTION_DOWN________a", "${layoutParams.leftMargin}, ${layoutParams.topMargin}, $xOpen, $yOpen")
-
                             mainLayout.invalidate()
+                            checker()
+                            ++sumOfMoves
                         }
                     }
-
                 }
             }
             true
         }
     }
 
-    fun checker(){
+    private fun checker(){
         var leftStart = 8
         var topStart = 0
         val widthScreen = this.windowManager.defaultDisplay.width - 16
@@ -142,13 +123,13 @@ class RuzannaActivity : AppCompatActivity() {
         }
         if(t){
             val dialogBuilder = AlertDialog.Builder(this)
-            dialogBuilder.setMessage("Well done!")
+            dialogBuilder.setMessage("Sum Of Moves: $sumOfMoves")
                     .setCancelable(false)
                     .setNeutralButton("OK", DialogInterface.OnClickListener {
                         _, _ -> finish()
                     })
             val alert = dialogBuilder.create()
-            alert.setTitle("Puzzle 15")
+            alert.setTitle("Well done!")
             alert.show()
         }
     }
