@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/main">
+
+    <ImageView
+        android:id="@+id/image1"
+        android:layout_width="88dp"
+        android:layout_height="88dp"
+        android:padding="2dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/i1"  />
+
+    <ImageView
+        android:id="@+id/image2"
+        android:layout_width="88dp"
+        android:layout_height="88dp"
+        android:padding="2dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="88dp"
+        android:layout_marginLeft="89dp"
+        android:layout_marginTop="0dp"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/i2" />
+
+    <ImageView
+        android:id="@+id/image3"
+        android:layout_width="88dp"
+        android:layout_height="88dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:padding="2dp"
+        android:layout_marginStart="208dp"
+        android:layout_marginTop="0dp"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/i3" />
+
+    <ImageView
+        android:id="@+id/image4"
+        android:layout_width="88dp"
+        android:layout_height="88dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="305dp"
+        android:padding="2dp"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/i4" />
+    <ImageView
+        android:id="@+id/image5"
+        android:layout_width="88dp"
+        android:layout_height="88dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="305dp"
+        android:padding="2dp"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/i5" />
+    <ImageView
+        android:id="@+id/image6"
+        android:layout_width="88dp"
+        android:layout_height="88dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="305dp"
+        android:padding="2dp"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/i6" />
+    <ImageView
+        android:id="@+id/image7"
+        android:layout_width="88dp"
+        android:layout_height="88dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="305dp"
+        android:padding="2dp"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/i7" />
+    <ImageView
+        android:id="@+id/image8"
+        android:layout_width="88dp"
+        android:layout_height="88dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="305dp"
+        android:padding="2dp"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/i8" />
+    <ImageView
+        android:id="@+id/image9"
+        android:layout_width="88dp"
+        android:layout_height="88dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="305dp"
+        android:padding="2dp"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/i9" />
+    <ImageView
+        android:id="@+id/image10"
+        android:layout_width="88dp"
+        android:layout_height="88dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="305dp"
+        android:padding="2dp"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/i10" />
+    <ImageView
+        android:id="@+id/image11"
+        android:layout_width="88dp"
+        android:layout_height="88dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="305dp"
+        android:padding="2dp"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/i11" />
+    <ImageView
+        android:id="@+id/image12"
+        android:layout_width="88dp"
+        android:layout_height="88dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="305dp"
+        android:padding="2dp"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/i12" />
+    <ImageView
+        android:id="@+id/image13"
+        android:layout_width="88dp"
+        android:layout_height="88dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="305dp"
+        android:padding="2dp"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/i13" />
+    <ImageView
+        android:id="@+id/image14"
+        android:layout_width="88dp"
+        android:layout_height="88dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="305dp"
+        android:padding="2dp"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/i14" />
+    <ImageView
+        android:id="@+id/image15"
+        android:layout_width="88dp"
+        android:layout_height="88dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="305dp"
+        android:padding="2dp"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/i15" />
+
+</RelativeLayout>
