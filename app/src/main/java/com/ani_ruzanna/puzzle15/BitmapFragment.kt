@@ -3,6 +3,7 @@ package com.ani_ruzanna.puzzle15
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,25 +13,26 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.fragment_game16.*
+import kotlinx.android.synthetic.main.fragment_bitmap.*
 import kotlin.properties.Delegates
 
-class Game16Fragment : Fragment() {
+class BitmapFragment: Fragment(){
+    lateinit var bitmap: Bitmap
     private lateinit var mainLayout: ViewGroup
     private lateinit var l: List<Pair<ImageView, Int>>
+    lateinit var listener: BitmapFragmentListener
+    private var sumOfMoves = 0
     private var imageWidth = 0
     private var xOpen = 0
     private var yOpen = 0
-    private var sumOfMoves = 0
-    lateinit var listener: Game16FragmentListener
     var widthScreen by Delegates.notNull<Int>()
-
+    var widthBitmap by Delegates.notNull<Int>()
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_game16, container, false)
+        return inflater.inflate(R.layout.fragment_bitmap, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -40,6 +42,7 @@ class Game16Fragment : Fragment() {
                 Pair(image5, 5), Pair(image6, 6), Pair(image7, 7), Pair(image8, 8),
                 Pair(image9, 9), Pair(image10, 10), Pair(image11, 11), Pair(image12, 12),
                 Pair(image13, 13), Pair(image14, 14), Pair(image15, 15))
+
         var lsh = l.shuffled()
         var odd = true
         while (odd) {
@@ -60,7 +63,19 @@ class Game16Fragment : Fragment() {
 
         val widthScreen1 = resources.configuration.screenWidthDp- 16
         Log.i(widthScreen1.toString(), widthScreen.toString())
+        var y = 0
+        var x = 0
+        val listBitmap = mutableListOf<Bitmap>()
+        for(i in 0..14){
+            listBitmap.add(Bitmap.createBitmap(bitmap, x, y, widthBitmap, widthBitmap))
+            y+=widthBitmap
+            if(y >= widthBitmap*4){
+                y = 0
+                x +=widthBitmap
+            }
+        }
         imageWidth = widthScreen / 4
+
         var leftStart = 8
         var topStart = 0
         for (i in lsh.indices) {
@@ -70,6 +85,8 @@ class Game16Fragment : Fragment() {
             lp.leftMargin = leftStart
             lp.topMargin = topStart
             leftStart += imageWidth
+            lsh[i].first.setImageBitmap(listBitmap[i])
+            x+=widthBitmap
             if (leftStart > widthScreen) {
                 topStart += imageWidth
                 leftStart = 8
@@ -78,7 +95,6 @@ class Game16Fragment : Fragment() {
         }
         xOpen = 8 + imageWidth * 3
         yOpen = imageWidth * 3
-
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -117,7 +133,7 @@ class Game16Fragment : Fragment() {
     private fun checker() {
         var leftStart = 8
         var topStart = 0
-       // val widthScreen = resources.configuration.screenWidthDp - 16
+        // val widthScreen = resources.configuration.screenWidthDp - 16
         var t = true
         for (i in l.indices) {
             val lp = l[i].first.layoutParams as RelativeLayout.LayoutParams
@@ -137,8 +153,7 @@ class Game16Fragment : Fragment() {
         }
     }
 
-    interface Game16FragmentListener {
+    interface BitmapFragmentListener {
         fun endGameListener(sumOfMoves: Int)
     }
-
 }
