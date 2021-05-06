@@ -68,10 +68,10 @@ class BitmapFragment: Fragment(){
         val listBitmap = mutableListOf<Bitmap>()
         for(i in 0..14){
             listBitmap.add(Bitmap.createBitmap(bitmap, x, y, widthBitmap, widthBitmap))
-            y+=widthBitmap
-            if(y >= widthBitmap*4){
-                y = 0
-                x +=widthBitmap
+            x+=widthBitmap
+            if(x >= widthBitmap*4){
+                x = 0
+                y +=widthBitmap
             }
         }
         imageWidth = widthScreen / 4
@@ -85,7 +85,7 @@ class BitmapFragment: Fragment(){
             lp.leftMargin = leftStart
             lp.topMargin = topStart
             leftStart += imageWidth
-            lsh[i].first.setImageBitmap(listBitmap[i])
+            lsh[i].first.setImageBitmap(listBitmap[lsh[i].second - 1])
             x+=widthBitmap
             if (leftStart > widthScreen) {
                 topStart += imageWidth
