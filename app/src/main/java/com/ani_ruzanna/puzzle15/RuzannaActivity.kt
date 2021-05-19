@@ -1,13 +1,14 @@
 package com.ani_ruzanna.puzzle15
 
-import android.R.attr
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.ActivityNotFoundException
 import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
+import android.graphics.ImageDecoder
+import android.media.ExifInterface
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
@@ -16,6 +17,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_ruzanna.*
+import java.io.File
 
 
 class RuzannaActivity : AppCompatActivity(), Game16Fragment.Game16FragmentListener, TimerFragment.TimerFragmentListener, BitmapFragment.BitmapFragmentListener {
