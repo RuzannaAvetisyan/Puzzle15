@@ -6,9 +6,7 @@ import android.content.ActivityNotFoundException
 import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.ImageDecoder
-import android.media.ExifInterface
-import android.os.Build
+import android.graphics.Bitmap.CompressFormat
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
@@ -17,16 +15,22 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_ruzanna.*
+import org.apache.commons.imaging.formats.jpeg.JpegImageMetadata
+import org.apache.commons.imaging.formats.jpeg.exif.ExifRewriter
+import java.io.ByteArrayOutputStream
 import java.io.File
+import org.apache.commons.imaging.formats.tiff.write.TiffOutputSet
+import org.apache.sanselan.Sanselan
 
 
-class RuzannaActivity : AppCompatActivity(), Game16Fragment.Game16FragmentListener, TimerFragment.TimerFragmentListener, BitmapFragment.BitmapFragmentListener {
+class RuzannaActivity : AppCompatActivity(), Game16Fragment.Game16FragmentListener, TimerFragment.TimerFragmentListener, BitmapFragment.BitmapFragmentListener , RotateActivity.RotateActivityListener {
     private lateinit var mainLayout: ViewGroup
     private lateinit var l: List<Pair<ImageView, Int>>
     private val timerFragment = TimerFragment()
     private var imageWidth = 0
     private var xOpen = 0
     private var yOpen = 0
+    val rotateActivity = RotateActivity()
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,8 +48,8 @@ class RuzannaActivity : AppCompatActivity(), Game16Fragment.Game16FragmentListen
 
         camera.setOnClickListener {
             val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
+           //val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
             intent.type = "image/*"
-           // val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
             try {
                 startActivityForResult(intent, 1)
             } catch (e: ActivityNotFoundException) {
@@ -55,7 +59,6 @@ class RuzannaActivity : AppCompatActivity(), Game16Fragment.Game16FragmentListen
                 ).show()
             }
         }
-
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -76,13 +79,10 @@ class RuzannaActivity : AppCompatActivity(), Game16Fragment.Game16FragmentListen
             }
             Log.i(" tw, th, t, t", "$tw, $th, $t, $t, $w, $h)")
             val bm1 = Bitmap.createBitmap(bitmap, tw, th, t, t)
-            val bitmapFragment = BitmapFragment()
-            bitmapFragment.bitmap = bm1
-            val widthScreen = this.windowManager.defaultDisplay.width - 16
-            bitmapFragment.widthScreen = widthScreen
-            bitmapFragment.widthBitmap = t/4
-            bitmapFragment.listener = this
-            supportFragmentManager.beginTransaction().replace(R.id.game_container, bitmapFragment).commit()
+            rotateActivity.bitmap = bm1
+            rotateActivity.bitmapW = t
+            rotateActivity.listener = this
+            supportFragmentManager.beginTransaction().replace(R.id.game_container, rotateActivity).commit()
         }else{
             Toast.makeText(
                     applicationContext, "Bad request",
@@ -101,6 +101,17 @@ class RuzannaActivity : AppCompatActivity(), Game16Fragment.Game16FragmentListen
         val alert = dialogBuilder.create()
         alert.setTitle("Well done!")
         alert.show()
+    }
+
+    override fun rotatedBitmap(bitmap: Bitmap, t: Int) {
+        val bitmapFragment = BitmapFragment()
+        bitmapFragment.bitmap = bitmap
+        val widthScreen = this.windowManager.defaultDisplay.width - 16
+        bitmapFragment.widthScreen = widthScreen
+        bitmapFragment.widthBitmap = t/4
+        bitmapFragment.listener = this
+        supportFragmentManager.beginTransaction().replace(R.id.game_container, bitmapFragment).commit()
+
     }
 
 }

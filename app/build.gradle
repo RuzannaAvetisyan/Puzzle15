@@ -43,4 +43,6 @@ dependencies {
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    compile group: 'org.apache.commons', name: 'commons-imaging', version: '1.0-alpha1'
+    implementation group: 'org.apache.sanselan', name: 'sanselan', version: '0.97-incubator'
 }
